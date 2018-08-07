@@ -12,6 +12,12 @@ is tmsapi.rkt.  ``TMS'' is the name of the data provider.  TMS
 provides movie data for the entire United States and Canada.  (TMS is
 now called Gracenote.)
 
+The only nontrivial part of this system is the macro hash.refs --- see
+tmsapi.rkt.  This macro is good for deep JSON access, but it's not of
+much use in this system.  What would be good here, I think, is
+Clojure's Specter, but there's no such library for Racket.  (Consider
+porting this library to Racket, if you have the skills.)
+
 (*) The frontend
 
 The frontend is written with HTML, CSS and Javascript.  The main
