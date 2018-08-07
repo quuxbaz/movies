@@ -11,11 +11,14 @@
          deferred
          (prefix-in tms: "tmsapi.rkt"))
 
-(define db-conn
-  (virtual-connection
-   (connection-pool
-    (lambda () 
-      (get-connection)))))
+(define db-conn #f)
+
+(define (database-start-up)
+  (set! db-conn
+        (virtual-connection
+         (connection-pool
+          (lambda () 
+            (get-connection))))))
 
 (define (genres)
   (define sql "select movies.mov_genres from movies where length(movies.mov_genres) > 0")
@@ -183,6 +186,7 @@
     (query-exec db-conn trl)))
 
 (define (get-connection)
+  (displayln (format "get-connection: using database ~a." (the-database)))
   (sqlite3-connect #:database (the-database) #:mode 'create))
 
 (define (table-exists? tbl)

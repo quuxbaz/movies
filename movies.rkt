@@ -138,6 +138,7 @@
 (define demo? (make-parameter false))
 
 (define (set-things-up)
+  (m:database-start-up)
   (when (not (demo?))
     (m:set-up)
     (m:schedule-daily-update)))

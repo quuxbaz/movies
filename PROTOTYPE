@@ -3,7 +3,7 @@
 If you'd like to understand the system, perhaps you could begin with
 the data provider API.
 
-http://developer.tmsapi.com/docs/read/data_v1_1/movies
+  http://developer.tmsapi.com/docs/read/data_v1_1/movies
 
 (*) To understand the code
 
@@ -29,13 +29,14 @@ to your shell.  Then use the --demo flag as in
 
 That's all.
 
+The demonstration shows a few threaters of the city of Toledo, Ohio.
+
 (*) How to run the system in production
 
 Do you have an API key?  You'll need one.  Assuming you do, for
 production mode, say --production --key apikey to movies.rkt.  In
 other words,
 
-  racket movies.rkt --key affdeadffbbee --production
+  racket movies.rkt --key my-api-key --production
 
-That's all.  (You probably want to keep logs.  You should use a good
-logger such as multilog.)
+That's all.
