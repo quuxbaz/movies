@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-md-3">
+          <!--Sidebar content-->
+          <ul>
+              <li ng-repeat='src in $ctrl.sources'>
+                  <span>{{src.name}}</span>
+                  <p><a href=""
+                        ng-click='$ctrl.showJson(src.url)'>{{src.url}}</a></p>
+              </li>
+          </ul>
+      </div>
+
+      <div class="col-md-8">
+          <!--Body content-->
+          <pre>{{$ctrl.jsonView|json}}</pre>
+      </div>
+  </div>
+</div>

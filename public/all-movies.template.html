@@ -1,0 +1,51 @@
+<div ng-include="'popular-movies.template.html'"></div>
+
+<!-- <div class="movie iframe"> -->
+<!--     <iframe src="https://www.google.com/maps/d/u/0/embed?mid=zTqbwzGVUTfI.kjKZmC-cusu0" width="100%" height="310"></iframe> -->
+<!-- </div> -->
+
+<div>
+    <h3>Browse All Titles:
+        <select ng-model="$ctrl.genre">
+            <option value="">All genres</option>
+            <option ng-repeat="g in $ctrl.genres">{{g.genre}}</option>
+        </select>
+</h3>
+    <hr>
+</div>
+<div ng-repeat="m in $ctrl.movies | filter:{mov_genres: $ctrl.genre}">
+    <div class="row">
+	<div class="large-2 columns">
+	    <a href="#!/movie/{{m.mov_rootId}}"><img ng-src="{{m.mov_image_name}}/small"/></a><br/>
+	</div>
+	<div class="large-10 columns">
+    	    <h3><a href="#!/movie/{{m.mov_rootId}}">{{m.mov_title}}</a> <span style="font-weight:300; color:#7d7c77;" ng-show="m.mov_releaseYear">({{m.mov_releaseYear}})</span></h3>
+
+            <p>{{m.mov_shortDescription}}</p>
+
+	    <p ng-show="m.mov_genres"><strong>Genre:</strong> {{m.mov_genres}}<br/></p>
+            <p ng-show="m.mov_ratings"><strong>Rating:</strong> {{m.mov_ratings}}<br/></p>
+
+            <p ng-show="m.shows.length > 0"><strong>Showtimes:</strong><br/>
+            <span ng-repeat="t in m.shows" ng-cloak>
+                <a href="#!/showtimes/{{t.th_id}}">{{t.th_name}}</a>:<br/>
+                <span ng-repeat="s in t.shw_time">
+                    {{s|date:"h:mma"}}
+                </span><br/>
+            </span><br>
+            </p>
+
+	</div>
+    </div>
+    <hr/>
+</div>
+
+<!--
+<div class="row ads">
+    <div class="large-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
+    </div>
+    
+    <div class="large-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span>
+    </div>
+</div>
+-->

@@ -1,0 +1,278 @@
+From 12695cc747492a06e35562369109bb8c8727cefd Mon Sep 17 00:00:00 2001
+From: Daniel Bastos <dbastos@toledo.com>
+Date: Wed, 9 Nov 2016 15:17:05 -0500
+Subject: [PATCH] Cosmetic issues.
+
+---
+ movies.rkt                          |    4 +-
+ public/all-movies.template.html     |    2 +
+ public/genres.template.html         |    6 +++-
+ public/index.html                   |    8 ++----
+ public/movie-detail.template.html   |    4 +-
+ public/movies.html                  |   12 +++++++--
+ public/popular-movies.template.html |    2 +-
+ public/theater-list.template.html   |    7 +++--
+ run.sh                              |    4 +-
+ tmsapi.rkt                          |   46 ++++++++++++++++++++++++++++------
+ 10 files changed, 67 insertions(+), 28 deletions(-)
+ mode change 100644 => 100755 run.sh
+
+diff --git a/movies.rkt b/movies.rkt
+index f590915..d6ab901 100644
+--- a/movies.rkt
++++ b/movies.rkt
+@@ -121,7 +121,7 @@
+ 
+ (define (set-things-up)
+   (m:set-up)
+-  (m:schedule-daily-update))
++  #;(m:schedule-daily-update))
+ 
+ (module+ main
+   (file-stream-buffer-mode (current-output-port) 'line)
+@@ -141,7 +141,7 @@
+     (serve/servlet dispatch 
+                    #:stateless? true
+                    #:log-file (build-path "logs/httpd.log")
+-                   #:port 1234
++                   #:port 80
+                    #:ssl? false
+                    #:listen-ip (if (production?) false "127.0.0.1")
+                    #:servlet-path "/"
+diff --git a/public/all-movies.template.html b/public/all-movies.template.html
+index 3a336e3..634015f 100644
+--- a/public/all-movies.template.html
++++ b/public/all-movies.template.html
+@@ -40,6 +40,7 @@
+     <hr/>
+ </div>
+ 
++<!--
+ <div class="row ads">
+     <div class="large-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
+     </div>
+@@ -47,3 +48,4 @@
+     <div class="large-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span>
+     </div>
+ </div>
++-->
+diff --git a/public/genres.template.html b/public/genres.template.html
+index ba33876..e931f98 100644
+--- a/public/genres.template.html
++++ b/public/genres.template.html
+@@ -15,10 +15,12 @@
+ 
+ <hr>
+ 
++<!--
+ <div class="row ads">
+-    <div class="large-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
++    <div class="small-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
+     </div>
+      
+-    <div class="large-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span>
++    <div class="small-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span>
+     </div>
+ </div>
++-->
+diff --git a/public/index.html b/public/index.html
+index 5bcd9fa..cdcfeed 100644
+--- a/public/index.html
++++ b/public/index.html
+@@ -23,8 +23,6 @@
+ 
+         <div class="row box">
+             <div class="large-12 columns">
+-
+-                <h1 class="title">Movie Showtimes for Toledo Area Theaters</h1>
+                 <div class="movie-page">
+ 	            <div class="movie-button-box">
+     	                <div class="row">
+@@ -33,13 +31,13 @@
+                             </div>
+                         </div>
+                         <div class="row">
+-                            <div class="large-4 columns movie-button-1">
++                            <div class="small-4 columns movie-button-1">
+                                 <a href="#!/theaters">Theaters</a>
+                             </div>
+-                            <div class="large-4 columns movie-button-2">
++                            <div class="small-4 columns movie-button-2">
+                                 <a href="#!/movies">Movie Title</a>
+                             </div>
+-                            <div class="large-4 columns movie-button-3">
++                            <div class="small-4 columns movie-button-3">
+                                 <a href="#!/genres">Genres</a>
+                             </div>
+                         </div>
+diff --git a/public/movie-detail.template.html b/public/movie-detail.template.html
+index 65dfa1f..e0b036a 100644
+--- a/public/movie-detail.template.html
++++ b/public/movie-detail.template.html
+@@ -57,10 +57,10 @@
+ 
+     </div>
+     <div class="row ads">
+-        <div class="large-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
++        <div class="small-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
+         </div>
+         
+-        <div class="large-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span>
++        <div class="small-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span>
+         </div>
+     </div>
+ </div>
+diff --git a/public/movies.html b/public/movies.html
+index 575b579..fbef481 100644
+--- a/public/movies.html
++++ b/public/movies.html
+@@ -79,7 +79,8 @@
+ 	</div>
+ </div>
+ <hr/>
+- 
++
++<!-- 
+ <div class="row ads">
+     <div class="large-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
+     </div>
+@@ -89,10 +90,15 @@
+ </div>
+ 
+ <div class="youtube flex-video"><iframe src="https://www.youtube.com/embed/F4gJsKZvqE4" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+-<div class="youtube flex-video"><iframe src="https://www.youtube.com/embed/jBwynG1beCE" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
++<div class="youtube
++            flex-video"><iframe src="https://www.youtube.com/embed/jBwynG1beCE"
++                                width="560" height="315"
++                                frameborder="0"
++                                allowfullscreen="allowfullscreen"></iframe></div>
++-->
+ 
+ </div>
+ </div>
+ </div>
+ 
+-</body>
+\ No newline at end of file
++</body>
+diff --git a/public/popular-movies.template.html b/public/popular-movies.template.html
+index e30939e..ba73905 100644
+--- a/public/popular-movies.template.html
++++ b/public/popular-movies.template.html
+@@ -5,7 +5,7 @@
+         </div>
+     </div>
+     <div class="row">
+-        <div class="large-2 columns center" ng-repeat="m in $ctrl.popular">
++        <div class="small-2 columns center" ng-repeat="m in $ctrl.popular">
+             <a href="#!/movie/{{m.mov_rootId}}"><img ng-src="{{m.mov_image_name}}/small"/></a>
+         </div>
+     </div>
+diff --git a/public/theater-list.template.html b/public/theater-list.template.html
+index 1ac4505..e748509 100644
+--- a/public/theater-list.template.html
++++ b/public/theater-list.template.html
+@@ -21,14 +21,15 @@
+     <hr/>
+ </div>
+ 
++<!--
+ <div class="row ads">
+-    <div class="large-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
++    <div class="small-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
+     </div>
+     
+-    <div class="large-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span>
++    <div class="small-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span>
+     </div>
+ </div>
+ 
+ <div class="youtube flex-video"><iframe src="https://www.youtube.com/embed/F4gJsKZvqE4" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+ <div class="youtube flex-video"><iframe src="https://www.youtube.com/embed/jBwynG1beCE" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+-
++-->
+diff --git a/run.sh b/run.sh
+old mode 100644
+new mode 100755
+index 42b83e2..2cbcc5c
+--- a/run.sh
++++ b/run.sh
+@@ -1,2 +1,2 @@
+-#!/bin/sh
+-nohup racket -l errortrace -t movies.rkt -- --production > logs/run.log 2>&1 &
++#!/bin/sh
++nohup /home/dbastos/racket/bin/racket -l errortrace -t movies.rkt -- --production > logs/run.log 2>&1 &
+diff --git a/tmsapi.rkt b/tmsapi.rkt
+index 49c2031..526ed72 100644
+--- a/tmsapi.rkt
++++ b/tmsapi.rkt
+@@ -20,15 +20,32 @@
+ (define (get-http-code bs)
+   (string->number (list-ref (string-split (bytes->string/utf-8 bs)) 1)))
+ 
+-(define (fetch-uri host uri)
+-  (define (sleep-try-again code)
+-    (printf "Code ~a. Sleeping one second before trying again...~n" code)
++;; (define (fetch-uri host uri)
++;;   (define (sleep-try-again code)
++;;     (printf "Code ~a. Sleeping one second before trying again...~n" code)
++;;     (sleep 1))
++;;   (define-values (codebs headers port) (http-sendrecv host uri))
++;;   (define code (get-http-code codebs))
++;;   (cond [(= code 200) port]
++;;         [(= code 403) (begin (sleep-try-again code) (fetch-uri host uri))]
++;;         [(= code 504) (begin (sleep-try-again code) (fetch-uri host uri))]
++;;         [else
++;;          (begin (printf "Could not fetch [~a].~n" uri)
++;;                 (printf "Code: ~a.~n" code)
++;;                 (printf "Bytes: ~a.~n" (port->bytes port)) 
++;;                 'fail)]))
++
++(define (fetch-uri host uri [attempt 0])
++  (define (sleep-try-again code attempts)
++    (when (= attempts 3)
++      (raise 'too-many-attempts))
++    (printf "Code ~a. Sleeping one second before trying again... (attempt ~a)~n" code attempts)
+     (sleep 1))
+   (define-values (codebs headers port) (http-sendrecv host uri))
+   (define code (get-http-code codebs))
+   (cond [(= code 200) port]
+-        [(= code 403) (begin (sleep-try-again code) (fetch-uri host uri))]
+-        [(= code 504) (begin (sleep-try-again code) (fetch-uri host uri))]
++        [(= code 403) (begin (sleep-try-again code attempt) (fetch-uri host uri (add1 attempt)))]
++        [(= code 504) (begin (sleep-try-again code attempt) (fetch-uri host uri (add1 attempt)))]
+         [else
+          (begin (printf "Could not fetch [~a].~n" uri)
+                 (printf "Code: ~a.~n" code)
+@@ -43,12 +60,25 @@
+                          filename
+                          (format "assets/image-not-available-~a.png" size))))))
+ 
++;; (define (fetch-image filename size)
++;;   (define fmt "http://~a/~a?api_key=~a")
++;;   (define uri (format fmt api-host-img filename api-key))
++;;   (define port (fetch-uri api-host-img uri))
++;;   (display-to-file (port->bytes port) filename #:exists 'replace)
++;;   'okay)
++
+ (define (fetch-image filename size)
+   (define fmt "http://~a/~a?api_key=~a")
+   (define uri (format fmt api-host-img filename api-key))
+-  (define port (fetch-uri api-host-img uri))
+-  (display-to-file (port->bytes port) filename #:exists 'replace)
+-  'okay)
++  ;; a hack to avoid trying forever
++  (define retsym 'okay)
++  (with-handlers 
++    ([(λ (sym) (symbol=? sym 'too-many-attempts))
++      ;; giving up after too many attempts
++      (λ (x) (set! retsym 'failure))])
++    (display-to-file (port->bytes (fetch-uri api-host-img uri))
++  filename #:exists 'replace))
++  retsym)
+ 
+ (define (fetch-trailers ls-of-root-ids)
+   (define fmt "http://~a/v1.1/screenplayTrailers?rootids=~a&player_url=1&api_key=~a")
+-- 
+1.7.1
+

@@ -1,0 +1,37 @@
+<div ng-repeat="t in $ctrl.theaters">
+    <div>
+        <div>
+	    <h3><a href="#!/showtimes/{{t.th_id}}">{{t.th_name}}</a></h3>
+        </div>
+        <div class="row">
+	    <div class="large-6 columns">
+		<p>{{t.th_street}}<br/> {{t.th_city}}, {{t.th_state}}, {{t.th_zip}}<br/> <a href="https://maps.google.com?saddr=Current+Location&amp;daddr={{t.th_name}}+{{t.th_street}}+{{t.th_state}}+{{t.th_zip}}" target="_blank">Get directions</a></p>
+	    </div>
+	    <div class="large-6 columns">
+		<p><span ng-if="t.phone"><strong>Phone:</strong> {{t.th_phone}}.<br/></span>
+                    <span ng-if="t.screens"><strong>Screens:</strong> {{t.screens}}<br/></span>
+                    <a href="#!/showtimes/{{t.th_id}}">See show times</a></p>
+	    </div>
+        </div>
+    </div>
+    <hr/>
+</div>
+
+<div class="large-12 columns" style="text-align:center;" ng-repeat="t in $ctrl.poptrailers">
+    <div>{{t.mov_title}}<br/>
+    <iframe width="485" height="365" ng-src="{{$ctrl.trustSrc(t.tr_url)}}" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+<!--
+<div class="row ads">
+    <div class="small-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
+    </div>
+    
+    <div class="small-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span>
+    </div>
+</div>
+
+<div class="youtube flex-video"><iframe src="https://www.youtube.com/embed/F4gJsKZvqE4" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+<div class="youtube flex-video"><iframe src="https://www.youtube.com/embed/jBwynG1beCE" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+-->

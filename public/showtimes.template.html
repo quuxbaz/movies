@@ -1,0 +1,45 @@
+<div class="movie-page">
+    <div>
+	<h2 ng-cloak>{{$ctrl.theater.th_name}}, {{$ctrl.chosen|date:'EEEE, MMMM dd, yyyy'}}.</h2>
+        <h5>
+            View showtimes for:
+            <select ng-model="$ctrl.chosen" ng-change="$ctrl.update()">
+                <option ng-repeat="d in $ctrl.days" value="{{d|date:'yyyy-MM-dd'}}"> {{d|date:'EEEE, MMMM dd, yyyy'}} </option>
+            </select>
+        </h5> 
+    </div>
+
+    <div ng-show="$ctrl.shows.length == 0">
+        Boo! No showtimes for {{$ctrl.chosen|date:'MMMM dd, yyyy'}}.
+        <hr/>
+    </div>
+
+    <div ng-repeat="m in $ctrl.shows">
+        <a name="{{m.mov_rootId}}"></a>
+            <div class="row">
+	        <div class="large-2 columns">
+	            <a href="#!/movie/{{m.mov_rootId}}"><img ng-src="{{m.mov_image_name}}/small"></a>
+	        </div>
+	        <div class="large-10 columns">
+    	            <h2><a href="#!/movie/{{m.mov_rootId}}">{{m.mov_title}}</a> <span style="font-weight:300; color:#7d7c77;" ng-show="m.mov_releaseYear">({{m.mov_releaseYear}})</span></h2>
+
+                    <p>{{m.mov_shortDescription}}</p>
+                    
+	            <p><span ng-show="m.mov_ratings"><strong>Ratings:</strong> {{m.mov_ratings}}<br/></span>
+                        <strong>Date Playing: </strong>{{m.shows[0]|date:'MM/dd/yyyy'}}<br>
+                        <strong>Showtimes:</strong> <span ng-repeat="s in m.shows">{{s|date:'h:mma'}} </span>
+                    </p>
+	        </div>
+            </div>
+        <hr/>
+    </div>
+    
+    <!-- <div class="row ads">
+         <div class="large-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
+         </div>
+         
+         <div class="large-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span>
+         </div>
+         </div> -->
+
+</div>

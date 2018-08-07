@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://asoft11252.accrisoft.com/toledo/stylesheet.css"/>
+        <link rel="stylesheet" href="https://asoft11252.accrisoft.com/toledo/foundation.css"/>
+
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
+
+        <script type="text/javascript" src="loading-bar.min.js"></script>
+        <link rel="stylesheet" href="loading-bar.min.css"/>
+
+        <script type="text/javascript" src="movies.js"></script>
+
+<style>
+ [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+     display: none !important;
+ }
+</style>
+
+    </head>
+    <body ng-app="theApp" ng-cloak>
+
+        <div class="row box">
+            <div class="large-12 columns">
+                <div class="movie-page">
+	            <div class="movie-button-box">
+    	                <div class="row">
+        	            <div class="large-12 columns">
+            	                <h4>Browse for Movies based on:</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="small-4 columns movie-button-1">
+                                <a href="#!/theaters">Theaters</a>
+                            </div>
+                            <div class="small-4 columns movie-button-2">
+                                <a href="#!/movies">Movie Title</a>
+                            </div>
+                            <div class="small-4 columns movie-button-3">
+                                <a href="#!/genres">Genres</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie iframe">
+                        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=zTqbwzGVUTfI.kjKZmC-cusu0" width="100%" height="310"></iframe>
+                    </div>
+
+                    <ng-view></ng-view>
+                    
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

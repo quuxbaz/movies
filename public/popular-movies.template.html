@@ -1,0 +1,12 @@
+<div class="movie-button-box">
+    <div class="row">
+        <div class="large-12 columns">
+            <h4>Popular Titles in Theaters Now:</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-2 columns center" ng-repeat="m in $ctrl.popular">
+            <a href="#!/movie/{{m.mov_rootId}}"><img ng-src="{{m.mov_image_name}}/small"/></a>
+        </div>
+    </div>
+</div>

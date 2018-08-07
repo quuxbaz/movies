@@ -1,0 +1,66 @@
+<div class="movie-page">
+	<div class="movie-button-box">
+    	<div class="row">
+        	<div class="large-7 columns">
+            	<h2>{{$ctrl.movie.mov_title}} <span style="font-weight:100;
+            	color:#999; font-size:.8em;" ng-show="$ctrl.movie.mov_releaseYear">({{$ctrl.movie.mov_releaseYear}})</span></h2>
+                <p>
+                    <span ng-show="$ctrl.movie.mov_genres"><strong>Genre:</strong> {{$ctrl.movie.mov_genres}} <br/></span>
+                    <span ng-show="$ctrl.movie.mov_releaseDate"><strong>Release Date:</strong> {{$ctrl.movie.mov_releaseDate|date:"MMMM dd, yyyy"}}<br/></span>
+                    <span ng-show="$ctrl.movie.mov_ratings"><strong>Rating:</strong> {{$ctrl.movie.mov_ratings}}<br/></span>
+                    <span ng-show="$ctrl.movie.mov_runtime"><strong>Runtime:</strong> {{$ctrl.movie.mov_runtime}} <br/></span>
+
+                    <span ng-show="$ctrl.movie.shows.length > 0">
+                        <strong>Theaters/Showtimes:</strong> <p> 
+                        <span ng-repeat="t in $ctrl.movie.shows">
+                            <a href="#!/showtimes/{{t.th_id}}">{{t.th_name}}</a><br/>
+                            <span ng-repeat="s in t.shw_time">{{s|date:'h:mma'}} </span> 
+                            <br/>
+                        </p>
+                        </span>
+
+                    <hr>
+                    <span ng-show="$ctrl.movie.mov_directors"><strong>Director:</strong> {{$ctrl.movie.mov_directors}}<br/></span>
+                    <span ng-show="$ctrl.movie.mov_topcast"><strong>Top cast:</strong> {{$ctrl.movie.mov_topcast}}<br/><br/></span>
+                    <span ng-show="$ctrl.movie.mov_longDescription"><strong>Movie Info:</strong> {{$ctrl.movie.mov_longDescription}}</span>
+                </p>
+                <div style="margin:20px 20px;">
+                    <div class="movie-button-1">
+                        <a href="#!/theaters">Back to Theater page</a>
+                    </div>
+                    <br>
+                    <div class="movie-button-2">
+                        <a href="#!/movies">Back to Main Movies page</a>
+                    </div>
+                </div>
+            </div>
+            <div class="large-5 columns movie-detail-cover" style="text-align:center;">
+           		<img ng-src="{{$ctrl.movie.mov_image_name}}/large"/>
+            </div>
+        </div>
+        
+        <p>&nbsp;</p>
+
+        <div class="row" ng-show="$ctrl.movie.trailer.tr_url">
+            <div><h5>
+                Trailers and clips:
+                <select ng-model="$ctrl.movie.trailer.tr_eclipid" ng-change="$ctrl.view()">
+                    <option ng-repeat="t in $ctrl.trailers" value="{{t.tr_eclipid}}">{{t.tr_description}}</option>
+                </select>
+            </h5> 
+            </div>
+
+            <div class="large-12 columns" style="text-align:center;">
+                <iframe width="485" height="365" ng-src="{{$ctrl.trustSrc($ctrl.movie.trailer.tr_url)}}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+
+    </div>
+    <!-- <div class="row ads"> -->
+    <!--     <div class="small-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span> -->
+    <!--     </div> -->
+        
+    <!--     <div class="small-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span> -->
+    <!--     </div> -->
+    <!-- </div> -->
+</div>

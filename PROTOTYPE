@@ -1,0 +1,41 @@
+(*) Start here
+
+If you'd like to understand the system, perhaps you could begin with
+the data provider API.
+
+http://developer.tmsapi.com/docs/read/data_v1_1/movies
+
+(*) To understand the code
+
+Begin at movies.rkt.  The database is in model.rkt.  The API handler
+is tmsapi.rkt.  ``TMS'' is the name of the data provider.  TMS
+provides movie data for the entire United States and Canada.  (TMS is
+now called Gracenote.)
+
+(*) The frontend
+
+The frontend is written with HTML, CSS and Javascript.  The main
+library is angular, but watch out: this is angular version 1.0.
+
+(*) Demonstration 
+
+For a demonstration, say 
+
+  make demo
+
+to your shell.  Then use the --demo flag as in 
+
+  racket movies.rkt --demo
+
+That's all.
+
+(*) How to run the system in production
+
+Do you have an API key?  You'll need one.  Assuming you do, for
+production mode, say --production --key apikey to movies.rkt.  In
+other words,
+
+  racket movies.rkt --key affdeadffbbee --production
+
+That's all.  (You probably want to keep logs.  You should use a good
+logger such as multilog.)

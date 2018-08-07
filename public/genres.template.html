@@ -1,0 +1,26 @@
+<h3>Click on a genre to view a filtered list of movies:</h3>
+<hr>
+
+<div class="row">
+    <div class="columns large-12 genre" ng-repeat="g in $ctrl.genres">
+        <a href="#!/movies/genre/{{g.genre}}">{{g.genre}}</a>
+    </div>
+
+    <!-- <div class="large-12 columns genre" ng-repeat="g in $ctrl.genres">
+         <a href="#!/movies/genre/{{g.genre}}">{{g.genre}}</a>
+         </div> -->
+</div>
+
+<hr>
+
+<div ng-include="'popular-movies.template.html'"></div>
+
+<!--
+<div class="row ads">
+    <div class="small-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
+    </div>
+     
+    <div class="small-6 columns"><span id="bnrinst_2_1274"><a class="fba_links" rel="nofollow" href="fba/ymca-child-care-august-2016-300-x100/1274/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="YMCA Child Care August 2016 300 x100"/></a></span>
+    </div>
+</div>
+-->

@@ -1,0 +1,111 @@
+From d170ac727b34c7a926809d8816af4a06ec42e3b2 Mon Sep 17 00:00:00 2001
+From: Daniel Bastos <dbastos@toledo.com>
+Date: Wed, 9 Nov 2016 19:24:09 -0200
+Subject: [PATCH] New feature: poptrailers.
+
+---
+ model.rkt                             |  8 ++++++++
+ movies.rkt                            |  6 +++++-
+ public/api-list/api-list.component.js |  1 +
+ public/movies.js                      | 12 +++++++++++-
+ public/theater-list.template.html     |  6 ++++++
+ 5 files changed, 31 insertions(+), 2 deletions(-)
+
+diff --git a/model.rkt b/model.rkt
+index 2dcccf6..d91d910 100644
+--- a/model.rkt
++++ b/model.rkt
+@@ -58,6 +58,14 @@
+                                   #:group (list groupings) 
+                                   #:group-mode '(list))))
+ 
++(define (poptrailers)
++  (define sql "select count(showtimes.shw_time) as N, trailers.tr_url, movies.mov_title from showtimes 
++       join movies on movies.mov_rootId = showtimes.mov_rootId
++       join trailers on trailers.mov_rootId = movies.mov_rootId
++       where tr_description like '%trailer%' 
++      group by showtimes.mov_rootId order by N desc limit 2")
++  (sql-fetch sql))
++
+ (define (get-other-trailers id)
+   (define sql "select tr_eclipid, tr_description, tr_url from trailers 
+                  where mov_rootId = $1 order by tr_date asc")
+diff --git a/movies.rkt b/movies.rkt
+index d6ab901..b265711 100644
+--- a/movies.rkt
++++ b/movies.rkt
+@@ -28,7 +28,11 @@
+    (("assets" (string-arg)) asset->response)
+    (("assets" (string-arg) (string-arg)) asset->response)
+    (("genres") genres->response)
+-   (("calendar" (integer-arg)) calendar->response)))
++   (("calendar" (integer-arg)) calendar->response)
++   (("poptrailers") poptrailers->response)))
++
++(define (poptrailers->response r)
++  (string->response (jsexpr->string (m:poptrailers))))
+ 
+ (define (calendar->response r id)
+   (string->response (jsexpr->string (m:get-calendar id))))
+diff --git a/public/api-list/api-list.component.js b/public/api-list/api-list.component.js
+index dc20eb1..18cd7d6 100644
+--- a/public/api-list/api-list.component.js
++++ b/public/api-list/api-list.component.js
+@@ -10,6 +10,7 @@ angular.
+                  { name: "List of theaters", url: "/theaters" },
+                  { name: "List of all movies", url: "/movies" },
+                  { name: "Most popular movies", url: "/movies/popular" },
++                 { name: "Trailers of the two most popular movies", url: "/poptrailers" },
+                  { name: "A particular movie", url: "/movie/12886620" },
+                  { name: "A particular theater", url: "/theater/8856" },
+                  { name: "What's showing at Frankling Park today?", url: "/showtimes/5145"},
+diff --git a/public/movies.js b/public/movies.js
+index e46683f..8675679 100644
+--- a/public/movies.js
++++ b/public/movies.js
+@@ -39,7 +39,7 @@ angular
+     .module("theApp")
+     .component("theaterList", {
+         templateUrl: "theater-list.template.html",
+-        controller: function TheaterList($http, $filter) {
++        controller: function TheaterList($http, $filter, $sce) {
+             var self = this;
+             //self.order = "name";
+             $http.get("/theaters").then(function (response) {
+@@ -49,6 +49,16 @@ angular
+                     v.screens = x ? parseInt(x[0]) : "";
+                 });
+             });
++
++            self.trustSrc = function(src) {
++                return $sce.trustAsResourceUrl(src);
++            }
++
++            $http.get("/poptrailers").then(function (response) {
++                self.poptrailers = response.data;
++                console.log(self.poptrailers);
++            });            
++
+         }
+     });
+ 
+diff --git a/public/theater-list.template.html b/public/theater-list.template.html
+index e748509..81cdf0a 100644
+--- a/public/theater-list.template.html
++++ b/public/theater-list.template.html
+@@ -21,6 +21,12 @@
+     <hr/>
+ </div>
+ 
++<div class="large-12 columns" style="text-align:center;" ng-repeat="t in $ctrl.poptrailers">
++    <div>{{t.mov_title}}<br/>
++    <iframe width="485" height="365" ng-src="{{$ctrl.trustSrc(t.tr_url)}}" frameborder="0" allowfullscreen></iframe>
++    </div>
++</div>
++
+ <!--
+ <div class="row ads">
+     <div class="small-6 columns"><span id="bnrinst_1_1268"><a class="fba_links" rel="nofollow" href="fba/help-with-heroin-2016/1268/" onClick="window.open(this.href); return false;"><img src="http://www.toledo.com/cache/sql/fba/fs_1268.jpg" width="300" height="100" style="border:0" alt="Help With Heroin 2016"/></a></span>
+-- 
+2.6.3.windows.1
+
