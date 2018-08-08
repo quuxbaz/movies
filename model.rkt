@@ -11,6 +11,7 @@
          deferred
          (prefix-in tms: "tmsapi.rkt"))
 
+
 (define db-conn #f)
 
 (define (database-start-up)
@@ -398,25 +399,30 @@
   (define stm "SELECT th_id from theaters where th_id = ?")
   (query-maybe-row db-conn stm tid))
 
+;; I'll need a little macro hash.refs from util.rkt.  (It's an
+;; experiment.  The macro seems to shine in this case because we have
+;; more than a couple of levels of JSON nesting here.)
+(require "util.rkt")
+
 (define (populate-theaters)
   (displayln "Populating theaters...")
   (define stm "INSERT INTO theaters
     (th_id ,th_name ,th_street ,th_city ,th_state, th_zip, th_country
     ,th_latitude, th_longitude, th_phone) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)")
   (for ([t (in-list (tms:fetch-theaters))]
-        #:unless (theater-exists? (hash-ref t 'theatreId)))
-    (displayln (format "New theather: ~a." (hash-ref t 'name)))
+        #:unless (theater-exists? (hash.refs t.theatreId)))
+    (displayln (format "New theather: ~a." (hash.refs t.name)))
     (query-exec db-conn stm 
-                (hash-ref t 'theatreId)
-                (hash-ref t 'name) 
-                (hash-ref (hash-ref (hash-ref t 'location) 'address) 'street)
-                (hash-ref (hash-ref (hash-ref t 'location) 'address) 'city) 
-                (hash-ref (hash-ref (hash-ref t 'location) 'address) 'state) 
-                (hash-ref (hash-ref (hash-ref t 'location) 'address) 'postalCode) 
-                (hash-ref (hash-ref (hash-ref t 'location) 'address) 'country)
-                (hash-ref (hash-ref (hash-ref t 'location) 'geoCode) 'latitude)
-                (hash-ref (hash-ref (hash-ref t 'location) 'geoCode) 'longitude)
-                (hash-ref (hash-ref t 'location) 'telephone "")))
+                (hash.refs t.theatreId)
+                (hash.refs t.name) 
+                (hash.refs t.location.address.street)
+                (hash.refs t.location.address.city) 
+                (hash.refs t.location.address.state) 
+                (hash.refs t.location.address.postalCode) 
+                (hash.refs t.location.address.country)
+                (hash.refs t.location.geoCode.latitude)
+                (hash.refs t.location.geoCode.longitude)
+                (hash.refs t.location.telephone "")))
   'done)
 
 (define (movies-for-trailers)
