@@ -9,8 +9,8 @@
 (require db
          gregor
          deferred
-         (prefix-in tms: "tmsapi.rkt"))
-
+         (prefix-in tms: "tmsapi.rkt")
+         "util.rkt")
 
 (define db-conn #f)
 
@@ -142,6 +142,8 @@
 
 (define (daily-update [n-days *the-number-of-days*] [log? true])
   (tomorrow-at *the-update-hour* *the-update-minute* (daily-update))
+  (delete-old-files "logs/")
+  (delete-old-files "tmp/")
   (define old-port (current-output-port))
   (when log?
     (current-output-port 
@@ -402,7 +404,6 @@
 ;; I'll need a little macro hash.refs from util.rkt.  (It's an
 ;; experiment.  The macro seems to shine in this case because we have
 ;; more than a couple of levels of JSON nesting here.)
-(require "util.rkt")
 
 (define (populate-theaters)
   (displayln "Populating theaters...")
