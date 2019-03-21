@@ -175,7 +175,9 @@
                    #:stateless? true
                    #:log-file (build-path "logs/httpd.log")
                    #:port 8080
-                   #:ssl? false
+                   #:ssl? true
+		   #:ssl-cert "/etc/letsencrypt/live/movies.toledo.com/fullchain.pem"
+		   #:ssl-key "/etc/letsencrypt/live/movies.toledo.com/privkey.pem"
                    #:listen-ip (if (production?) false "127.0.0.1")
                    #:servlet-path "/"
                    #:servlet-regexp #rx""
